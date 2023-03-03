@@ -11,7 +11,6 @@ export class Cart extends Component {
         this.state = {
             cartItems: [],
             cartsLoading: true,
-            totalQty: 0
         };
     }
 
@@ -28,8 +27,10 @@ export class Cart extends Component {
                 <CartList
                     cartItems={this.state.cartItems}
                     deleteCartItem={this.deleteCartItem}
-                    editItemQuantity={this.editItemQuantity}
+                    incrementQuantity={this.incrementQuantity}
+                    decrementQuantity={this.decrementQuantity}
                     placeOrder={this.placeOrder}
+                    
                 />
             </div>
         );
@@ -39,29 +40,39 @@ export class Cart extends Component {
 
     //DELETE ITEM FROM CART
     deleteCartItem = (id) => {
-        axios.delete('/carts/' + id);
-        window.location.reload();
+        axios.delete('/carts/' + id).then(response => {
+            this.setState({cartItems: response.data})
+        })
     }
 
-    //CHANGE QUANTITY OF ITEM IN CART
-    
-    editItemQuantity = (item, event) => {  
+    //INCREMENT QUANTITY OF ITEM IN CART BY 1
+    incrementQuantity = (id) => {
         const itemToEdit = {
-            productId: item.productId,
-            productName: item.productName,
-            unitPrice: item.unitPrice,
-            imageUrl: item.imageUrl,
-            quantity: event.target.quantity.value
+            Id: id,
+            increaseQuantity: true
         };
-        axios.put('/carts/', itemToEdit);
+        axios.put('/carts/', itemToEdit).then(response => {
+            this.setState({ cartItems: response.data})
+        });
+        
+    }
+
+    //DECREMENT QUANTITY OF ITEM IN CART BY 1 
+    decrementQuantity = (id) => {
+        const itemToEdit = {
+            Id: id,
+            increaseQuantity: false
+        };
+        axios.put('/carts/', itemToEdit).then(response => {
+            this.setState({ cartItems: response.data})
+        })
+
     }
 
     //PLACE ORDER (REMOVE ALL ITEMS FROM CART)
     placeOrder(item) {
         axios.delete('/carts');
     }
-
-
 
 
     render() {
@@ -79,7 +90,6 @@ export class Cart extends Component {
             </div>
         );
     }
-
 
 
     async populateCart() {

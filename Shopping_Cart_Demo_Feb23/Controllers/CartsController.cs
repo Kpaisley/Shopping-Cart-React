@@ -46,9 +46,19 @@ namespace Shopping_Cart_Demo_Feb23.Controllers
 
         // PUT api/<CartsController>/5
         [HttpPut]
-        public void Put([FromBody] CartItem item)
+        public List<CartItem> Put([FromBody] CartItemIncrease item)
         {
-            _cartRepo.editItemQuantity(item.ProductId, item.Quantity);
+            if (item.increaseQuantity == true)
+            {
+                _cartRepo.increaseItemQty(item.Id);
+            }
+            else
+            {
+                _cartRepo.decreaseItemQty(item.Id);
+            }
+
+            return _cartRepo.Items;
+            
         }
 
 
@@ -56,9 +66,10 @@ namespace Shopping_Cart_Demo_Feb23.Controllers
 
         // DELETE api/<CartsController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public List<CartItem> Delete(int id)
         {
             _cartRepo.deleteCartItem(id);
+            return _cartRepo.Items;
         }
 
 

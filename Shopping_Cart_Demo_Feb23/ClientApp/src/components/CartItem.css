@@ -28,11 +28,7 @@ span {
 
 .product-quantity {
     text-align: right;
-    padding: 10px 15px 0 0;
-}
-
-.quantity-input {
-    width: 45px;
+    padding: 10px 25px 0 0;
 }
 
 .quantity-form {
@@ -44,4 +40,14 @@ span {
 .quantity-buttons {
     text-align: right;
     padding: 10px 15px 0 0;
+}
+
+.quantity-buttons input {
+    width: 25px;
+    margin: 5px;
+}
+
+.delete-button {
+    margin-bottom: 5px;
+    cursor: pointer;
 }

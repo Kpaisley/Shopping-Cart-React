@@ -23,14 +23,31 @@
         }
 
 
-        public void editItemQuantity(int id, int qty)
+        public void increaseItemQty(int id)
         {
-            for (int i = 0; i < this.Items.Count; i++)
+            for(int i = 0; i < Items.Count; i++)
             {
-                if (this.Items[i].ProductId == id)
+                if (Items[i].ProductId == id)
                 {
-                    this.Items[i].Quantity = qty;
-                    break;
+                    Items[i].Quantity++;
+                    return;
+                }
+            }
+        }
+
+        public void decreaseItemQty(int id)
+        {
+            for(int i = 0; i < Items.Count; i++)
+            {
+                if (Items[i].ProductId == id)
+                {
+                    if (Items[i].Quantity < 2) 
+                    {
+                        return;
+                    }
+
+                    Items[i].Quantity--;
+                    return;
                 }
             }
         }

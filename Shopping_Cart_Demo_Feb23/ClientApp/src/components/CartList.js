@@ -8,16 +8,14 @@ import './CartList.css';
 export class CartList extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            cartItems: props.cartItems
-        };
+        
     }
 
 
     getTotalQty() {
         var x = 0;
-        for (let i = 0; i < this.state.cartItems.length; i++) {
-            x += this.state.cartItems[i].quantity;
+        for (let i = 0; i < this.props.cartItems.length; i++) {
+            x += this.props.cartItems[i].quantity;
         }
         return x;
     }
@@ -26,8 +24,8 @@ export class CartList extends Component {
 
     getTotalPrice() {
         let x = 0;
-        for (let i = 0; i < this.state.cartItems.length; i++) {
-            x += (this.state.cartItems[i].unitPrice * this.state.cartItems[i].quantity)
+        for (let i = 0; i < this.props.cartItems.length; i++) {
+            x += (this.props.cartItems[i].unitPrice * this.props.cartItems[i].quantity)
         }
 
         x += (x * .05);
@@ -39,7 +37,7 @@ export class CartList extends Component {
     placeOrder() {
         var x = document.getElementById('cart-warning');
 
-        if (this.state.cartItems.length <= 0) {
+        if (this.props.cartItems.length <= 0) {
             x.innerHTML = "Please add some items to your cart first.";
             return;
         }
@@ -49,9 +47,6 @@ export class CartList extends Component {
             var z = document.getElementById('cart-modal')
             z.classList.add('display-flex');
         }
-
-        
-        
     }
 
 
@@ -61,12 +56,13 @@ export class CartList extends Component {
         return (
             <div>
                 <div className="cart-list">
-                    {this.state.cartItems.map( cartItem =>
+                    {this.props.cartItems.map( cartItem =>
                         <CartItem 
                             key={cartItem.productId}
                             cartItem={cartItem}
                             deleteCartItem={this.props.deleteCartItem}
-                            editItemQuantity={this.props.editItemQuantity}
+                            incrementQuantity={this.props.incrementQuantity}
+                            decrementQuantity={this.props.decrementQuantity}
                         />
                     )}
                     <div className="product-summary">
@@ -74,10 +70,10 @@ export class CartList extends Component {
                         <ul>
                             <li>Total items: {this.getTotalQty()}</li>
                             <li>Subtotal: ${this.getTotalPrice()}<br /><em>(5% tax included in subtotal)</em></li>
-                    </ul>
-                    <input className="order-button" type="button" value="Place Order!" onClick={this.placeOrder.bind(this)} ></input>
-                    <p id="cart-warning"></p>
-                    <Link className="shopping-link" to="/">Continue Shopping!</Link>
+                        </ul>
+                        <input className="order-button" type="button" value="Place Order!" onClick={this.placeOrder.bind(this)} ></input>
+                        <p id="cart-warning"></p>
+                        <Link className="shopping-link" to="/">Continue Shopping!</Link>
                     </div>  
                 </div>
                 <div className="modal" id="cart-modal">

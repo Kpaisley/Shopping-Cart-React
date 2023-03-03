@@ -21,7 +21,7 @@ export class ProductItem extends Component {
         return (
             <div>
                 <div className="product-item">
-                    <img src={this.state.product.imageUrl} width="252px" height="250px" alt=""></img>
+                    <img src={this.state.product.imageUrl} width="250px" height="250px" alt=""></img>
                     <strong><p>{this.state.product.productName}</p></strong>
                     <p>${this.state.product.unitPrice}</p>
                     <input type="submit" value="Add to Cart" className="add-btn" onClick={this.props.addCartItem.bind(this, this.props.product)}></input>

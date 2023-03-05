@@ -34,8 +34,6 @@ export class ProductItem extends Component {
                         
                     </div>
                 </div> 
-
-
             </div>
         );
     }

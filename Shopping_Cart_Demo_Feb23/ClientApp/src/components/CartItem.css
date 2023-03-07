@@ -45,6 +45,8 @@ span {
 .quantity-buttons input {
     width: 25px;
     margin: 5px;
+    text-align: center;
+    color: #4747fc;
 }
 
 .delete-button {

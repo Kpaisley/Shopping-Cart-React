@@ -69,7 +69,7 @@ export class CartList extends Component {
                         <h4>Order Summary</h4>
                         <ul>
                             <li>Total items: {this.getTotalQty()}</li>
-                            <li>Subtotal: ${this.getTotalPrice()}<br /><em>(5% tax included in subtotal)</em></li>
+                            <li>Total: ${this.getTotalPrice()}<br /><em>(5% tax included in total)</em></li>
                         </ul>
                         <input className="order-button" type="button" value="Place Order!" onClick={this.placeOrder.bind(this)} ></input>
                         <p id="cart-warning"></p>
